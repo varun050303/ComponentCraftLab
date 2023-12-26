@@ -1,0 +1,115 @@
+:root {
+    --mainBackgroundColor: #feb99a;
+    --darkYellow: #f0c154;
+    --lightGreen: #7cc97f;
+    --lightRed: #f16261;
+    --lightBrown: #a34f2a;
+    --textColor: #3a1e0d;
+}
+
+html {
+    font-size: 125%;
+    font-family: "Nunito", sans-serif;
+    line-height: 1.4;
+}
+
+body {
+    margin: 5rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: var(--mainBackgroundColor);
+}
+
+.accordion-container {
+    max-width: 31.25rem;
+    margin: auto;
+}
+
+.accordion:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.accordion:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.accordion button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+}
+
+.accordion_title {
+    color: var(--textColor);
+    font-family: "Nunito" sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.accordion__content_icon {
+    flex-shrink: 0
+}
+
+.accordion__content_icon svg {
+    width: 5rem;
+}
+
+.accordion__indicator svg {
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.indicator__minus {
+    display: none;
+}
+
+.indicator__plus {
+    display: block;
+}
+
+.is-open .accordion__indicator .indicator__plus {
+    display: none;
+}
+
+.is-open .accordion__indicator .indicator__minus {
+    display: block;
+}
+
+[data-theme="cheese"] {
+    background-color: var(--darkYellow);
+}
+
+[data-theme="lettuce"] {
+    background-color: var(--lightGreen);
+}
+
+[data-theme="tomato"] {
+    background-color: var(--lightRed);
+}
+
+[data-theme="bread"] {
+    background-color: var(--lightBrown);
+}
+
+.accordion__content {
+    display: none;
+}
+
+.accordion__content_wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 1.4rem;
+    align-items: center;
+}
+
+.accordion__content_description {
+    font-size: 0.8rem;
+}
+
+.is-open .accordion__content {
+    display: block;
+}

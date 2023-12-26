@@ -1,0 +1,75 @@
+:root {
+  --color-default-state: grey;
+  --color-hover-state: rgb(107, 107, 195);
+  --color-selected-state: rgb(17, 26, 101);
+}
+
+.carousel_contents img {
+  width: 30rem
+}
+
+.carousel_contents ul {
+  display: flex;
+}
+
+.carousel_slide {
+  flex: 1 0 auto;
+}
+
+.carousel_contents {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel_slide {
+  width: inherit;
+  height: inherit;
+}
+
+.carousel__left_button {
+  position: absolute;
+  top: 50%;
+  left: -4rem;
+  transform: translate(0, -100%);
+  cursor: pointer;
+}
+
+.carousel__right_button {
+  position: absolute;
+  top: 50%;
+  right: -4rem;
+  transform: translate(0, -100%);
+  cursor: pointer;
+}
+
+.carousel__navigation_dots {
+  text-align: center;
+  margin: 1rem;
+}
+
+.carousel__dot {
+  border: 1px solid gray;
+  border-radius: 100%;
+  width: 0.8rem;
+  height: 0.8rem;
+  padding: 0;
+  background-color: gray;
+  margin: auto 0.4rem;
+  cursor: pointer;
+}
+
+.carousel__dot.active {
+  background-color: black;
+}
+
+.carousel__dot[data-state="active"] {
+  background-color: black;
+}
+
+.carousel-container {
+  width: fit-content;
+  margin: 10rem auto;
+  max-width: 30rem;
+  position: relative;
+}
