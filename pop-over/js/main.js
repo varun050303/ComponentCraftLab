@@ -109,9 +109,7 @@ popoverTriggers.forEach(popoverTrigger => {
 document.addEventListener('click', evt => {
     const popoverTrigger = evt.target.closest('.popover-trigger')
     if (!popoverTrigger) return
-    let popover = document.querySelector(`#${popoverTrigger.dataset.target}`)
-
-    if (!popover) createPopover(popoverTrigger)
+    const popover = document.querySelector(`#${popoverTrigger.dataset.target}`)
     if (popover.hasAttribute('hidden')) {
         popover.removeAttribute('hidden')
     } else {
@@ -133,9 +131,5 @@ const createPopover = popoverTrigger => {
     const p = document.createElement('p')
     p.textContent = popoverTrigger.dataset.content
 
-    document.body.appendChild(p)
+    popover.appendChild(p)
 }
-
-
-const bottomPopoverTrigger = document.querySelector('.popover-trigger[data-popover-position="bottom"]')
-const popover = createPopover(bottomPopoverTrigger)
