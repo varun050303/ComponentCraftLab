@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopOver</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="popover-container" data-popover-position="top">
+            <div id="topPop" class="popover" data-position="top">
+                <p>The quick brown fox jumps over the lazy dog</p>
+            </div>
+            <div class="trigger-wrapper">
+                <button class="popover-trigger" data-target="topPop"></button>
+            </div>
+        </div>
+
+        <div class="popover-container" data-popover-position="left">
+            <div id="leftPop" class="popover" data-position="left">
+                <p>The quick brown fox jumps over the lazy dog</p>
+            </div>
+
+            <div class="trigger-wrapper">
+                <button class="popover-trigger" data-target="leftPop"></button>
+            </div>
+        </div>
+
+        <div class="popover-container" data-popover-position="right">
+            <div id="rightPop" class="popover" data-position="right">
+                <p>The quick brown fox jumps over the lazy dog</p>
+            </div>
+            <div class="trigger-wrapper">
+                <button class="popover-trigger" data-target="rightPop"></button>
+            </div>
+        </div>
+
+        <div class="popover-container" data-popover-position="bottom">
+            <!-- <div id="bottomPop" class="popover" data-position="bottom">
+                <p>The quick brown fox jumps over the lazy dog</p>
+            </div> -->
+            <div class="trigger-wrapper">
+                <button class="popover-trigger" data-target="bottomPop"></button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

@@ -1,95 +1,92 @@
 :root {
-    --yellowBorder: #ffc609;
-    --blueBorder: #345992;
-    --redBorder: #c50018;
-    --whiteBackground: #ffffff;
-    --backgroundColor: #5c91e046;
-
+  --yellowBorder: #ffc609;
+  --blueBorder: #345992;
+  --redBorder: #c50018;
+  --whiteBackground: #ffffff;
+  --backgroundColor: #5c91e046;
 }
 
 html {
-    font-size: 125%;
-    font-family: "Noto Sans", sans-serif;
-    line-height: 1.4;
-    background-color: var(--backgroundColor);
+  font-size: 125%;
+  font-family: "Noto Sans", sans-serif;
+  line-height: 1.4;
+  background-color: var(--backgroundColor);
 }
 
 h2 {
-    font-size: 2em;
-    line-height: 2;
+  font-size: 2em;
+  line-height: 2;
 }
 
 .tab.is-selected[data-theme="pokemon"] {
-    border-color: var(--yellowBorder);
-    border-width: 0.6rem 0.6rem 0 0.6rem;
-    filter: none;
+  border-color: var(--yellowBorder);
+  border-width: 0.6rem 0.6rem 0 0.6rem;
+  filter: none;
 }
 
 .tab.is-selected[data-theme="tamagotchi"] {
-    border-color: var(--redBorder);
-    border-width: 0.6rem 0.6rem 0 0.6rem;
-    filter: none;
+  border-color: var(--redBorder);
+  border-width: 0.6rem 0.6rem 0 0.6rem;
+  filter: none;
 }
 
 .tab.is-selected[data-theme="digimon"] {
-    border-color: var(--blueBorder);
-    border-width: 0.6rem 0.6rem 0 0.6rem;
-    filter: none;
+  border-color: var(--blueBorder);
+  border-width: 0.6rem 0.6rem 0 0.6rem;
+  filter: none;
 }
 
 .tabs {
-    width: 100%;
-    display: flex;
-    flex: 1 0 auto
+  width: 100%;
+  display: flex;
+  /* flex: 1 0 auto */
 }
 
 .tabs .tab {
-    flex: 1 0 0;
-    position: relative;
-    filter: grayscale(75%) brightness(0.9);
+  flex: 1 0 0;
+  position: relative;
+  filter: grayscale(75%) brightness(0.9);
 }
 
-
-
 .tab.is-selected::after {
-    position: absolute;
-    z-index: 1;
-    bottom: -0.6em;
-    left: 0;
-    right: 0;
-    display: block;
-    content: "";
-    border-bottom: 0.7rem solid white;
+  position: absolute;
+  z-index: 1;
+  bottom: -0.6em;
+  left: 0;
+  right: 0;
+  display: block;
+  content: "";
+  border-bottom: 0.7rem solid white;
 }
 
 .tabby {
-    margin: 4rem auto;
-    max-width: 50rem;
-    background-color: var(--whiteBackground);
+  margin: 4rem auto;
+  max-width: 50rem;
+  background-color: var(--whiteBackground);
 }
 
 .tab-content img {
-    float: right;
-    margin: 0 1rem 1rem 1rem;
-    width: 21rem
+  float: right;
+  margin: 0 1rem 1rem 1rem;
+  width: 21rem;
 }
 
 .tab-contents .tab-content {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .tab-content:not(.is-selected) {
-    display: none;
+  display: none;
 }
 
 .tab-contents .is-selected[data-theme="tamagotchi"] {
-    border: 0.6rem solid var(--redBorder);
+  border: 0.6rem solid var(--redBorder);
 }
 
 .tab-contents .is-selected[data-theme="pokemon"] {
-    border: 0.6rem solid var(--yellowBorder);
+  border: 0.6rem solid var(--yellowBorder);
 }
 
 .tab-contents .is-selected[data-theme="digimon"] {
-    border: 0.6rem solid var(--blueBorder);
+  border: 0.6rem solid var(--blueBorder);
 }
