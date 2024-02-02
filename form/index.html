@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <form method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="Varun">
+        <br>
+        <hr>
+        <h4>Favourite Food</h4>
+        <input type="checkbox" name="male" id="male" value="mango">
+        <label for="male">Mango</label>
+        <input type="checkbox" name="female" id="female" value="banana">
+        <label for="male">Banana</label>
+        <input type="checkbox" name="gay" id="gay" value="grapes">
+        <label for="gay">Grapes</label>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="output"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.7/purify.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

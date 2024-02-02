@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <form class="todolist" autocomplete="off" action="#">
+        <div class="todolist__new-task">
+            <div class="new-task__input-group">
+                <label for="new-task">ADD A TASK</label>
+                <input type="text" id="new-task" name="new-task" placeholder="E.g. Buy groceries" />
+            </div>
+
+            <button type="submit">
+                <svg width="10px" viewBox="0 0 10 10">
+                    <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2z" fill="#062a43">
+                </svg>
+                <span>Add task</span>
+            </button>
+        </div>
+
+        <ul class="todolist-tasks"></ul>
+
+        <div class="todolist__empty-state">Your todo list is empty. Hurray! 🎉</div>
+    </form>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

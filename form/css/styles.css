@@ -1,0 +1,16 @@
+:root {
+  --navy-blue: #112752;
+}
+
+html {
+  font-size: 100%;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.4;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

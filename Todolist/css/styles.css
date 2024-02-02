@@ -1,0 +1,116 @@
+:root {
+  --navy-blue: #0e5282;
+  --light-cyan: #3fdcd2;
+  --sky-blue: #64c0f5;
+  --light-blue: #c6eaf9;
+}
+
+html {
+  font-size: 120%;
+  line-height: 1.4;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-blue);
+}
+
+.todolist__new-task {
+  background-color: var(--navy-blue);
+  padding: 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.todolist__new-task button {
+  background-color: var(--light-cyan);
+  padding: 9px 12px;
+  font-size: 0.7em;
+  border-radius: 3px;
+  border: none;
+  font-weight: 500;
+}
+
+input {
+  background-color: transparent;
+  border: 0px;
+}
+
+.new-task__input-group {
+  display: flex;
+  flex-direction: column;
+}
+.new-task__input-group label {
+  color: whitesmoke;
+  font-weight: 200;
+  font-size: 0.5em;
+  letter-spacing: 0.8px;
+}
+
+.new-task__input-group input {
+  color: white;
+  outline: none;
+  font-weight: 200;
+}
+
+new-task__input-group input[type="text"]:focus-visible {
+  outline: none;
+  border-color: inherit;
+  box-shadow: none;
+  -moz-outline: none;
+  -webkit-box-shadow: none;
+}
+
+new-task__input-group input[type="text"]::placeholder {
+  color: var(--sky-blue);
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.4rem 0;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8em;
+  align-items: center;
+}
+
+li span {
+  flex-grow: 1;
+}
+
+.task__delete-button {
+  opacity: 0;
+}
+.task:hover .task__delete-button {
+  opacity: 1;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--navy-blue);
+}
+
+input[type="checkbox"]:checked ~ .task__name {
+  text-decoration: line-through;
+  color: #7f7f7f;
+}
+
+.todolist-tasks + div {
+  display: none;
+}
+
+.todolist-tasks:empty + div {
+  display: block;
+  padding: 0 12px;
+}
