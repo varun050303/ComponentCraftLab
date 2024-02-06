@@ -34,6 +34,8 @@ ul {
   margin: 0;
   padding: 0;
   border-top: none;
+  max-height: 20.4rem;
+  overflow: scroll;
 }
 
 ul > li {
