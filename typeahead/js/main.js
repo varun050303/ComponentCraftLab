@@ -21,7 +21,9 @@ input.addEventListener('input', evt => {
         return name.startsWith(inputValue)
     })
 
-    const listOfMatchedInputElement = matches.map(createListElement)
+    const listOfMatchedInputElement = matches.map(match => {
+        return createListElement(match, inputValue)
+    })
 
     listOfMatchedInputElement.forEach(
         listElement => {
@@ -30,12 +32,11 @@ input.addEventListener('input', evt => {
     )
 })
 
-const createListElement = matchedInput => {
+const createListElement = (matchedInput, inputValue) => {
     const listElement = document.createElement('li')
     listElement.classList.add('matched_suggestions')
-    listElement.innerText = `${matchedInput.name}`
-
-    return listElement
+    listElement.innerHTML = boldSearchTerm(matchedInput.name, inputValue)
+    return listElement;
 }
 
 
@@ -52,3 +53,11 @@ ul.addEventListener('click', (evt) => {
     input.value = listElement.innerText
     ul.setAttribute('hidden', true)
 })
+
+
+const boldSearchTerm = (countryName, searchTerms) => {
+    const length = searchTerms.length
+    const toBold = countryName.substring(0, length)
+    const restOfString = countryName.substring(length)
+    return `<strong>${toBold}</strong><span>${restOfString}</span>`
+}
