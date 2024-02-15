@@ -80,7 +80,7 @@ input::placeholder {
 }
 
 .datepicker__date-grid button:first-child {
-  grid-column: 4;
+  grid-column: var(--firstDayOfMonth);
 }
 
 .datepicker__day-of-week {
