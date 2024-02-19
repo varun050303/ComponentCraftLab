@@ -48,12 +48,17 @@ input::placeholder {
 }
 
 .datepicker {
+  position: absolute;
   background-color: var(--white);
-  position: relative;
-  padding: 1.2rem 1.5rem;
-  max-width: 20rem;
+  padding: 1.2rem 1rem;
+  max-width: 18rem;
   border-radius: 6px;
   box-shadow: 1px 2px 28px -15px #000;
+}
+
+.datepicker__buttons {
+  position: relative;
+  width: 100%;
 }
 
 .datepicker__buttons button {
@@ -63,11 +68,11 @@ input::placeholder {
 }
 
 .datepicker__buttons .datepicker__previous {
-  left: 3rem;
+  left: 0;
 }
 
 .datepicker__buttons .datepicker__next {
-  right: 3rem;
+  right: 0;
   rotate: 180deg;
 }
 

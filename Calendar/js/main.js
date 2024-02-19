@@ -61,6 +61,23 @@ const createDatePicker = (input, date) => {
     ${prevNextMonthButtons}
     ${calendar}
     `
+
+    datepicker.setAttribute('hidden', true)
+
+    document.addEventListener('click', event => {
+        if (event.target.closest('.datepicker')) return
+        if (event.target.closest('input') === input) return
+        datepicker.setAttribute('hidden', true)
+    })
+    input.addEventListener('click', () => {
+        datepicker.removeAttribute('hidden')
+    })
+
+    const inputRect = input.getBoundingClientRect()
+    const oneRem = parseFloat(getComputedStyle(document.body)['font-size'])
+    datepicker.style.left = `${inputRect.left}px`
+    datepicker.style.top = `${inputRect.bottom + oneRem}px`
+
     const getDateFromYearMonthIndicator = _ => {
         const time = datepicker.querySelector('.datepicker__year-month').firstElementChild
         const datetime = time.getAttribute('datetime')
