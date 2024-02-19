@@ -1,5 +1,7 @@
 const date = new Date(2024, 1, 15)
 const yearMonthIndicator = document.querySelector('.datepicker__year-month')
+const form = document.querySelector('form')
+const input = form.querySelector('input')
 const monthsInAYear = [
     'January',
     'February',
@@ -15,7 +17,11 @@ const monthsInAYear = [
     'December'
 ]
 
-const createDatePicker = date => {
+const toTwoDigitString = number => {
+    return number.toString().padStart(2, '0')
+}
+
+const createDatePicker = (input, date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
     const monthName = monthsInAYear[month]
@@ -55,7 +61,11 @@ const createDatePicker = date => {
     ${prevNextMonthButtons}
     ${calendar}
     `
-
+    const getDateFromYearMonthIndicator = _ => {
+        const time = datepicker.querySelector('.datepicker__year-month').firstElementChild
+        const datetime = time.getAttribute('datetime')
+        return datetimeToDate(datetime)
+    }
 
     const previousNextButtons = datepicker.querySelector('.datepicker__buttons')
 
@@ -64,8 +74,7 @@ const createDatePicker = date => {
 
         if (evt.target.matches('.datepicker__previous')) {
             const timeEl = document.querySelector('.datepicker__year-month').firstElementChild;
-            const datetime = timeEl.getAttribute('datetime');
-            const currentDate = datetimeToDate(datetime);
+            const currentDate = getDateFromYearMonthIndicator()
 
             // Set the date to the first day of the previous month
             currentDate.setMonth(currentDate.getMonth() - 1, 1);
@@ -73,8 +82,7 @@ const createDatePicker = date => {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
             const monthName = monthsInAYear[month];
-            const datetimeMonth = (month + 1).toString().padStart(2, '0');
-
+            const datetimeMonth = toTwoDigitString(month + 1)
             timeEl.textContent = `${monthName} ${year}`;
             timeEl.setAttribute('datetime', `${year}-${datetimeMonth}`);
             const dategrid = datepicker.querySelector('.datepicker__date-grid')
@@ -83,8 +91,7 @@ const createDatePicker = date => {
 
         if (evt.target.matches('.datepicker__next')) {
             const timeEl = document.querySelector('.datepicker__year-month').firstElementChild;
-            const datetime = timeEl.getAttribute('datetime');
-            const currentDate = datetimeToDate(datetime);
+            const currentDate = getDateFromYearMonthIndicator()
 
             // Set the date to the first day of the next month
             currentDate.setMonth(currentDate.getMonth() + 1, 1);
@@ -92,7 +99,7 @@ const createDatePicker = date => {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
             const monthName = monthsInAYear[month];
-            const datetimeMonth = (month + 1).toString().padStart(2, '0');
+            const datetimeMonth = toTwoDigitString(month + 1)
 
             timeEl.textContent = `${monthName} ${year}`;
             timeEl.setAttribute('datetime', `${year}-${datetimeMonth}`);
@@ -103,6 +110,32 @@ const createDatePicker = date => {
 
     })
 
+    const dategrid = datepicker.querySelector('.datepicker__date-grid')
+    dategrid.addEventListener('click', (evt) => {
+        if (!evt.target.matches('button')) return
+        const button = evt.target
+        const buttons = [...button.parentElement.children]
+
+        buttons.forEach(button => {
+            button.classList.remove('is-selected')
+        })
+        button.classList.add('is-selected')
+
+        const time = button.firstElementChild
+        const datetime = time.getAttribute('datetime')
+        const selectedDate = datetimeToDate(datetime)
+
+        const year = selectedDate.getFullYear()
+        const month = toTwoDigitString(selectedDate.getMonth() + 1)
+        const day = toTwoDigitString(selectedDate.getDate())
+
+        const formatted = `${day}/${month}/${year}`
+
+        input.value = formatted
+
+
+    })
+
     return datepicker
 
 }
@@ -110,7 +143,7 @@ const createDatePicker = date => {
 const createDateGridHTML = date => {
     const month = date.getMonth()
     const year = date.getFullYear()
-    const dateTimeMonth = (month + 1).toString().padStart(2, '0')
+    const dateTimeMonth = toTwoDigitString(month + 1)
     const firstDayOfMonth = new Date(date.setDate(1)).getDay()
     const lastDayInMonth = new Date(2024, month + 1, 0)
     const numDaysInJanuary = lastDayInMonth.getDate()
@@ -119,8 +152,9 @@ const createDateGridHTML = date => {
 
     for (let day = 1; day <= numDaysInJanuary; day++) {
         const button = document.createElement('button')
+        button.setAttribute('type', 'button')
         if (day === 1) button.style.setProperty('--firstDayOfMonth', firstDayOfMonth + 1)
-        const datetimeDay = day.toString().padStart(2, '0')
+        const datetimeDay = toTwoDigitString(day)
         button.innerHTML = `
         <time datetime="${year}-${dateTimeMonth}-${datetimeDay}">${day}</time>
         `
@@ -130,11 +164,9 @@ const createDateGridHTML = date => {
     return dategrid.innerHTML
 }
 
-// Add the datepicker into the DOM
-const form = document.querySelector('form')
-form.appendChild(createDatePicker(date))
+form.appendChild(createDatePicker(input, date))
 
 const datetimeToDate = datetime => {
-    const [year, month] = datetime.split('-').map(num => parseInt(num))
-    return new Date(year, month - 1)
+    const [year, month, day = 1] = datetime.split('-').map(num => parseInt(num))
+    return new Date(year, month - 1, day)
 }
