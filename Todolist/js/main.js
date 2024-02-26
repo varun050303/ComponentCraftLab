@@ -49,6 +49,18 @@ todolist.addEventListener('click', (evt) => {
     }
 
     const taskElement = evt.target.parentElement
+    const checkbox = taskElement.querySelector('input[type="checkbox"]')
+    const id = checkbox.id
+
+
+    fetch(`${rootEndpoint}/tasks/${id}`, {
+        method: 'delete',
+        headers: {
+            Authorization: `Bearer ${encoded}`
+        }
+    }).then(r => r.json())
+        .then(body => console.log(body))
+
     taskList.removeChild(taskElement)
 
     if (taskList.children.length === 0) {
@@ -171,13 +183,7 @@ fetch(`${rootEndpoint}/tasks`, {
 // }).then(r => r.json())
 //     .then(body => console.log(body))
 
-// fetch(`${rootEndpoint}/tasks/65db9b987cc0cd9db10c7d73`, {
-//     method: 'delete',
-//     headers: {
-//         Authorization: `Bearer ${encoded}`
-//     }
-// }).then(r => r.json())
-//     .then(body => console.log(body))
+
 
 // fetch(`${rootEndpoint}/users/varun505`)
 //     .then(r => r.json())
