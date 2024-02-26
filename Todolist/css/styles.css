@@ -114,3 +114,16 @@ input[type="checkbox"]:checked ~ .task__name {
   display: block;
   padding: 0 12px;
 }
+
+.task input[type="text"] {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  width: 100%;
+}
+
+.task input[type="text"]:focus,
+.task input[type="text"]:active {
+  border-color: #bcccdc;
+  outline: none;
+}

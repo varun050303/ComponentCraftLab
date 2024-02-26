@@ -10,13 +10,49 @@ const toMilliseconds = unit => {
     if (unit === 'days') return days
 }
 
-const date1 = new Date(2024, 2, 0, 0, 10, 21)
-const date2 = new Date(2024, 2, 0, 0, 0, 0)
 
-const difference = (date1 - date2)
-const minutes = Math.floor(difference / toMilliseconds('minutes'))
-const remainder = difference - minutes * toMilliseconds('minutes')
-const seconds = remainder / toMilliseconds('seconds')
+const getCountdown = (endDate, startDate) => {
 
-console.log(minutes)
-console.log(seconds)
+    let difference = endDate - startDate
+
+    const days = Math.floor(difference / toMilliseconds('days'))
+    difference = difference - days * toMilliseconds('days')
+
+    const hours = Math.floor(difference / toMilliseconds('hours'))
+    difference = difference - hours * toMilliseconds('hours')
+
+    const minutes = Math.floor(difference / toMilliseconds('minutes'))
+    difference = difference - minutes * toMilliseconds('minutes')
+
+    const seconds = Math.floor(difference / toMilliseconds('seconds'))
+    difference = difference - seconds * toMilliseconds('seconds')
+    return {
+        days,
+        hours,
+        minutes,
+        seconds
+    }
+}
+
+const now = new Date()
+const nextMonth = new Date(
+    now.getFullYear(),
+    now.getMonth() + 1,
+    1
+)
+
+
+const updateBoxes = nextMonth => {
+    const now = new Date()
+    const values = getCountdown(nextMonth, now)
+    const boxes = document.querySelectorAll('.timer__box')
+    boxes.forEach(box => {
+        const unit = box.dataset.unit
+        const value = values[unit]
+        box.firstElementChild.textContent = value
+    })
+}
+
+setInterval(() => {
+    updateBoxes(nextMonth);
+}, 1000);
