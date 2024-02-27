@@ -13,8 +13,20 @@ todolist.addEventListener('submit', (evt) => {
     const newTaskField = todolist.querySelector('input')
     const inputValue = newTaskField.value.trim()
     const buttonTextElement = newTaskButton.querySelector('span')
-    // const id = generateUniqueString(10)
+    const id = generateUniqueString(10)
+
     if (!inputValue) return
+    const tempTaskElement = makeTaskElement({
+        id: generateUniqueString(10),
+        name: inputValue,
+        done: false,
+        state: 'loading',
+    })
+
+    taskList.appendChild(tempTaskElement)
+
+    newTaskField.value = ''
+    newTaskField.focus()
     newTaskButton.setAttribute('disabled', true)
     buttonTextElement.textContent = 'Adding task..'
 
@@ -29,10 +41,9 @@ todolist.addEventListener('submit', (evt) => {
         })
     }).then(r => r.json())
         .then(body => {
-            console.log(body)
-            makeTaskElement(body)
-            newTaskField.value = ''
-            newTaskField.focus()
+            taskList.removeChild(tempTaskElement)
+            const taskElement = makeTaskElement(body)
+            taskList.appendChild(taskElement)
         })
         .catch(err => console.log(err))
         .finally(_ => {
@@ -91,12 +102,23 @@ taskList.addEventListener('input', (evt) => {
         .then(body => console.log(body))
 })
 
-const makeTaskElement = ({ id, name, done }) => {
+const makeTaskElement = ({ id, name, done, state = "loaded" }) => {
     // const uniqueId = generateUniqueString(10)
+    let spinner = '';
+    if (state === 'loading') {
+        spinner = `<img class="task__spinner" src="images/spinner.gif" alt=""/>`
+    }
+
+    let checkbox = ''
+    if (state === 'loaded') {
+        checkbox = `<input type="checkbox" id="${id}" ${done ? 'checked' : ''}/>`
+    }
+
     const taskElement = document.createElement('li')
     taskElement.classList.add('task')
     taskElement.innerHTML = DOMPurify.sanitize(`
-                <input type="checkbox" id="${id}" ${done ? 'checked' : ''}/>
+                ${spinner}
+                ${checkbox}
                 <input type="text" class="task__name" value="${name}"/>
                 <button type="button" class="task__delete-button">
                     <svg width="10" viewBox="0 0 20 20">
@@ -105,7 +127,7 @@ const makeTaskElement = ({ id, name, done }) => {
                     </svg>
                 </button>
                     `)
-    taskList.appendChild(taskElement)
+    return taskElement
 }
 
 fetch(`${rootEndpoint}/tasks`, {
@@ -119,7 +141,8 @@ fetch(`${rootEndpoint}/tasks`, {
         body => {
             const tasks = body
             tasks.forEach(task => {
-                makeTaskElement(task)
+                const taskElement = makeTaskElement(task)
+                taskList.appendChild(taskElement)
             })
             emptyStateDiv.textContent = `Your todo list is empty. Hurray! 🎉`
         }

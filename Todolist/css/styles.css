@@ -99,6 +99,7 @@ li span {
   outline: none;
   border: none;
   color: var(--navy-blue);
+  cursor: pointer;
 }
 
 input[type="checkbox"]:checked ~ .task__name {
@@ -126,4 +127,8 @@ input[type="checkbox"]:checked ~ .task__name {
 .task input[type="text"]:active {
   border-color: #bcccdc;
   outline: none;
+}
+
+.task__spinner {
+  width: 1rem;
 }
