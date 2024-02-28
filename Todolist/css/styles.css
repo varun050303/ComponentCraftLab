@@ -3,6 +3,7 @@
   --light-cyan: #3fdcd2;
   --sky-blue: #64c0f5;
   --light-blue: #c6eaf9;
+  --warning-color: #c6181b;
 }
 
 html {
@@ -131,4 +132,43 @@ input[type="checkbox"]:checked ~ .task__name {
 
 .task__spinner {
   width: 1rem;
+}
+
+/* Element | http://127.0.0.1:5501/Todolist/ */
+
+.flash {
+  background: #fdeaea;
+  color: var(--warning-color);
+  padding: 12px;
+  border: 2px solid var(--warning-color);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.flas__message {
+  width: 100%;
+}
+
+.flash__close {
+  background: transparent;
+  outline: none;
+  border: none;
+  color: var(--warning-color);
+}
+
+.flash--connection {
+  visibility: hidden;
+}
+
+[data-connection-status="offline"] .flash--connection {
+  visibility: visible;
+  background: #fffaea;
+  color: #e9bc53;
+  border: 2px solid #e9bc53;
 }

@@ -2,16 +2,45 @@ const todolist = document.querySelector('.todolist')
 const taskList = todolist.querySelector('.todolist-tasks')
 const newTaskButton = todolist.querySelector('button')
 const emptyStateDiv = todolist.querySelector('.todolist__empty-state')
+const flashContainer = document.querySelector('.flash-container')
 const rootEndpoint = 'https://api.learnjavascript.today'
 const encoded = btoa('varun505:5050')
 const generateUniqueString = length => {
     return Math.random().toString(36).substring(2, 2 + length)
 }
+const state = {}
+
+/**Method to show user if its online or not */
+setConnectionStatus()
+window.addEventListener('online', setConnectionStatus)
+window.addEventListener('offline', setConnectionStatus)
+
+
+fetch(`${rootEndpoint}/tasks`, {
+    method: 'get',
+    headers: {
+        Authorization: `Basic ${encoded}`,
+    }
+})
+    .then(r => r.json())
+    .then(
+        body => {
+            state.tasks = body
+            state.tasks.forEach(task => {
+                const taskElement = makeTaskElement(task)
+                taskList.appendChild(taskElement)
+            })
+            emptyStateDiv.textContent = `Your todo list is empty. Hurray! 🎉`
+        }
+    )
+    .catch(err => console.log(err))
+
+
 
 todolist.addEventListener('submit', (evt) => {
     evt.preventDefault()
     const newTaskField = todolist.querySelector('input')
-    const inputValue = newTaskField.value.trim()
+    const inputValue = DOMPurify.sanitize(newTaskField.value.trim())
     const buttonTextElement = newTaskButton.querySelector('span')
     const id = generateUniqueString(10)
 
@@ -37,15 +66,26 @@ todolist.addEventListener('submit', (evt) => {
             'content-type': 'application/json'
         },
         body: JSON.stringify({
-            name: DOMPurify.sanitize(inputValue)
+            name: inputValue
         })
-    }).then(r => r.json())
+    }).then(r => {
+        return r.json()
+            .then(body => {
+                if (r.ok) return body
+                return Promise.reject({ body })
+            })
+    })
         .then(body => {
             taskList.removeChild(tempTaskElement)
             const taskElement = makeTaskElement(body)
+
             taskList.appendChild(taskElement)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            taskList.removeChild(tempTaskElement)
+            const errorElement = createErrorMessage(err.body.message)
+            flashContainer.appendChild(errorElement)
+        })
         .finally(_ => {
             buttonTextElement.textContent = 'Add task'
             newTaskButton.removeAttribute('disabled')
@@ -70,7 +110,6 @@ todolist.addEventListener('click', (evt) => {
             Authorization: `Bearer ${encoded}`
         }
     }).then(r => r.json())
-        .then(body => console.log(body))
 
     taskList.removeChild(taskElement)
 
@@ -102,6 +141,13 @@ taskList.addEventListener('input', (evt) => {
         .then(body => console.log(body))
 })
 
+flashContainer.addEventListener('click', (evt) => {
+    if (!evt.target.matches('button')) return
+    const closeButton = evt.target
+    const flashDiv = closeButton.parentElement
+    flashContainer.removeChild(flashDiv)
+})
+
 const makeTaskElement = ({ id, name, done, state = "loaded" }) => {
     // const uniqueId = generateUniqueString(10)
     let spinner = '';
@@ -130,25 +176,43 @@ const makeTaskElement = ({ id, name, done, state = "loaded" }) => {
     return taskElement
 }
 
-fetch(`${rootEndpoint}/tasks`, {
-    method: 'get',
-    headers: {
-        Authorization: `Basic ${encoded}`,
-    }
-})
-    .then(r => r.json())
-    .then(
-        body => {
-            const tasks = body
-            tasks.forEach(task => {
-                const taskElement = makeTaskElement(task)
-                taskList.appendChild(taskElement)
-            })
-            emptyStateDiv.textContent = `Your todo list is empty. Hurray! 🎉`
-        }
-    )
-    .catch(err => console.log(err))
+const createErrorMessage = message => {
+    message = formatErrorMessage(message)
+    const errorElement = document.createElement('div')
+    errorElement.classList.add('flash')
+    errorElement.dataset.type = 'error'
 
+
+    errorElement.innerHTML = `
+        <svg class="flash__icon" fill="#c6181b" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 27.963 27.963" xml:space="preserve">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+        <g id="SVGRepo_iconCarrier"> <g> <g id="c129_exclamation"> <path d="M13.983,0C6.261,0,0.001,6.259,0.001,13.979c0,7.724,6.26,13.984,13.982,13.984s13.98-6.261,13.98-13.984 C27.963,6.259,21.705,0,13.983,0z M13.983,26.531c-6.933,0-12.55-5.62-12.55-12.553c0-6.93,5.617-12.548,12.55-12.548 c6.931,0,12.549,5.618,12.549,12.548C26.531,20.911,20.913,26.531,13.983,26.531z"/> <polygon points="15.579,17.158 16.191,4.579 11.804,4.579 12.414,17.158 "/> <path d="M13.998,18.546c-1.471,0-2.5,1.029-2.5,2.526c0,1.443,0.999,2.528,2.444,2.528h0.056c1.499,0,2.469-1.085,2.469-2.528 C16.441,19.575,15.468,18.546,13.998,18.546z"/> </g> <g id="Capa_1_207_"> </g> </g> </g>
+        </svg>
+        <span class="flas__message">${message}</span>
+        <button class="flash__close">&#128473</button>
+    `
+
+    return errorElement
+}
+
+const formatErrorMessage = message => {
+    if (message === 'TypeError: Failed to fetch') {
+        return 'Failed to reach server. Please try again later.'
+    }
+
+    if (message === 'Unauthorized') {
+        return 'Invalid username or password. Please check your username or password.'
+    }
+
+    return message
+}
+
+function setConnectionStatus() {
+    navigator.onLine
+        ? document.body.dataset.connectionStatus = 'online'
+        : document.body.dataset.connectionStatus = 'offline'
+}
 
 // fetch('https://api.learnjavascript.today/users', {
 //     method: 'post',
