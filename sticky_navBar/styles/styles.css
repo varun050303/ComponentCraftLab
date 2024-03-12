@@ -1,0 +1,74 @@
+:root {
+  --secondary-color: #10192a;
+  --primary-color: #c28e54;
+}
+
+html {
+  font-size: 112.5%;
+  font-family: "Spectral SC", cursive;
+  line-height: 1.4;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+.scrollable {
+  overflow: auto;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.scrollable > div {
+  margin-top: 500px;
+}
+
+.hero {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+h1 {
+  font-size: 8rem;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.hero p {
+  text-align: center;
+}
+
+nav {
+  background-color: var(--primary-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+}
+
+nav p {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+nav a {
+  color: #000;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-weight: 600;
+}
+
+.logo {
+  margin: 0 4rem;
+}
+
+.links {
+  margin: 0 6rem;
+}

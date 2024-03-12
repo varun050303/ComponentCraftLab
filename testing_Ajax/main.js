@@ -108,15 +108,64 @@
 //     .then(d => console.log(d))
 //     .catch(err => console.log(err))
 
-fetch('https://api.github.com/users/varun050303/repos')
-    .then(response => {
-        return response.json()
-            .then(body => {
-                if (response.ok) return body
-                return Promise.reject({ body })
-            })
+// fetch('https://api.github.com/users/varun050303/repos')
+//     .then(response => {
+//         return response.json()
+//             .then(body => {
+//                 if (response.ok) return body
+//                 return Promise.reject({ body })
+//             })
+//     })
+//     .then(body => { console.log('body is', body) })
+//     .catch(err => { console.log('error is', err) })
+
+
+// async function getGithubRepos() {
+//     const response = await fetch('https://api.github.com/users/varun050303/repos')
+//     return response.json()
+// }
+
+const fruitsBasket = {
+    apple: '23',
+    banana: '12',
+    orange: '19'
+}
+
+const sleep = ms => {
+    return new Promise(resolve => { setTimeout(resolve, ms) })
+}
+
+const getNumFruits = fruit => {
+    return sleep(1000).then(v => { return fruitsBasket[fruit] })
+}
+
+// getNumFruits('apple').then(num => console.log(num))
+
+const control = async _ => {
+    console.log('Start')
+
+    const numApples = await getNumFruits("apple");
+    console.log(numApples)
+
+    const numBanana = await getNumFruits("banana");
+    console.log(numBanana)
+
+    const numOranges = await getNumFruits("orange")
+    console.log(numOranges)
+
+    console.log("End")
+}
+
+const fruitsToGet = ['apple', 'banana', 'orange'];
+
+const forLoop = _ => {
+    console.log("Start")
+    fruitsToGet.forEach(fruit => {
+        const numFruits = getNumFruits(fruit)
+        console.log(numFruits)
     })
-    .then(body => { console.log('body is', body) })
-    .catch(err => { console.log('error is', err) })
 
+    console.log("END")
+}
 
+forLoop()
