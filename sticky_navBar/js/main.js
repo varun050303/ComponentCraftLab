@@ -1,10 +1,16 @@
 const element = document.querySelector('.scrollable')
+const nav = document.querySelector('nav')
+const navHeight = nav.getBoundingClientRect().height
+let prevScrollPos = window.scrollY
 
-const buttonEl = document.querySelector('button')
+window.addEventListener('scroll', (evt) => {
+    const scrollPos = window.scrollY
 
-buttonEl.addEventListener('click', () => {
-    element.scroll({
-        top: 350,
-        behavior: "smooth",
-    })
+    if (scrollPos > prevScrollPos) {
+        nav.style.top = `-${navHeight}px`
+    } else {
+        nav.style.top = '0'
+    }
+
+    prevScrollPos = scrollPos
 })

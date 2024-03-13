@@ -10,7 +10,6 @@ html {
 }
 
 body {
-  height: 100vh;
   margin: 0;
 }
 
@@ -25,9 +24,9 @@ body {
 }
 
 .hero {
+  height: 100vh;
   display: grid;
   place-content: center;
-  height: 100vh;
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
@@ -40,17 +39,28 @@ h1 {
   text-align: center;
 }
 
-.hero p {
+h2 {
+  font-size: 5rem;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p {
   text-align: center;
 }
 
 nav {
+  position: sticky;
+  top: 0;
   background-color: var(--primary-color);
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem 2rem;
+  transition: top 0.15s ease;
 }
 
 nav p {
@@ -71,4 +81,10 @@ nav a {
 
 .links {
   margin: 0 6rem;
+}
+
+section {
+  height: 150vh;
+  display: grid;
+  place-content: center;
 }
