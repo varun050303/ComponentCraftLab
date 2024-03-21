@@ -53,3 +53,14 @@ const fetchLetters = _ => {
 loadMoreButton.addEventListener('click', fetchLetters)
 loadMoreButton.dataset.nextPage = `${endpoint}?limit=6&page=1`
 loadMoreButton.click()
+
+
+const obeserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.click()
+        }
+    })
+})
+
+obeserver.observe(loadMoreButton)
