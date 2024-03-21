@@ -66,12 +66,12 @@ li img {
 
 .dribbble-section {
   display: flex;
-  gap: 1.6rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+button,
 .button {
   background-color: transparent;
   border: 3px solid var(--indigo-200);
@@ -81,5 +81,39 @@ li img {
   font-size: 1rem;
   font-weight: 700;
   color: var(--indigo-200);
-  margin: auto;
+  margin: 2rem auto;
+  cursor: pointer;
+}
+
+button:hover,
+.button:hover {
+  background-color: var(--indigo-200);
+  color: var(--indigo-500);
+}
+
+button:active,
+.button:active {
+  outline: 2px solid var(--indigo-200);
+  outline-offset: 4px;
+}
+
+li {
+  position: relative;
+}
+
+li span {
+  position: absolute;
+  color: white;
+  bottom: 0.6rem;
+  left: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.letter:hover span {
+  opacity: 1;
+}
+
+.dribbble-section {
+  margin: 5rem auto;
 }
